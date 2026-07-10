@@ -1,0 +1,23 @@
+name: Run Cloud Resource Script
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install boto3
+        run: pip install boto3
+
+      - name: Check script syntax
+        run: python -m py_compile list_resources.py
